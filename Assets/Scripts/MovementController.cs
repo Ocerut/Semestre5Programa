@@ -6,9 +6,14 @@ using Fusion;
 public class MovementController : NetworkBehaviour
 {
     public CharacterController characterController;
+    Animator anim;
+    public float speed;
+    private bool ground;
+    public float jump;
 
     public void Awake()
     {
+        anim = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
 
@@ -23,7 +28,35 @@ public class MovementController : NetworkBehaviour
 
             if (direction.magnitude > 0)
             {
-                characterController.Move(direction);
+                anim.SetBool("canWalk", true);
+
+                characterController.Move(direction * speed * Runner.DeltaTime);
+            }
+
+            else
+            {
+               anim.SetBool("canWalk", false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                anim.SetBool("isRun", true);
+                speed = 10f;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                anim.SetBool("isRun", false);
+                speed = 5f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (ground)
+                {
+                    characterController.Move(Vector3.up * jump);
+                    ground = false;
+                    anim.SetBool("isJump", true);
+                }
             }
         }
     }
