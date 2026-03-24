@@ -6,14 +6,13 @@ using Fusion;
 public class MovementController : NetworkBehaviour
 {
     public CharacterController characterController;
-    Animator anim;
+    public Animator anim;
     public float speed;
     private bool ground;
     public float jump;
 
     public void Awake()
     {
-        anim = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
 
