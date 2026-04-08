@@ -11,6 +11,14 @@ public class MovementController : NetworkBehaviour
     private bool ground;
     public float jump;
 
+    [Networked] public int Score { get; set; }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_AddScore(int points)
+    {
+        Score += points;
+    }
+
     public void Awake()
     {
         characterController = GetComponent<CharacterController>();

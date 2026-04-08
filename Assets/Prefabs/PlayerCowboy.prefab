@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 6487012207609767897}
   m_Layer: 0
   m_Name: PlayerCowboy
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,6 +254,7 @@ MonoBehaviour:
   anim: {fileID: 5892245773542176172}
   speed: 5
   jump: 5
+  _Score: 0
 --- !u!114 &6487012207609767897
 MonoBehaviour:
   m_ObjectHideFlags: 0

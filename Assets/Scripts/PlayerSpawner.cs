@@ -11,7 +11,8 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
     {
         if (player == Runner.LocalPlayer)
         {
-            Runner.Spawn(playerPrefab, spawnPoint, Quaternion.identity, player);
+            var networkObj = Runner.Spawn(playerPrefab, spawnPoint, Quaternion.identity, player);
+            Runner.SetPlayerObject(player, networkObj);
         }
     }
 }
