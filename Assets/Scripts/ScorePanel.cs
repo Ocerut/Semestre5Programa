@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Fusion;
+using TMPro;
 
 public class ScorePanel : MonoBehaviour
 {
-    public Text screenTxt;
+    public TextMeshProUGUI screenTxt;
 
     void Update()
     {
