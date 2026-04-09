@@ -18,7 +18,6 @@ public class MultiplayerController : MonoBehaviour, INetworkRunnerCallbacks
 
     public async void EntrarSala()
     {
-        Debug.Log("entrou no botão");
         if (string.IsNullOrEmpty(nomeSala.text))
         {
             Debug.LogError("O nome da sala não pode ser vazio!");
