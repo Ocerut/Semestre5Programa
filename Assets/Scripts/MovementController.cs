@@ -10,6 +10,9 @@ public class MovementController : NetworkBehaviour
     public float speed;
     private bool ground;
     public float jump;
+    private Vector3 velocity;
+    public float gravity = -9.81f;
+    public bool jumpPressed;
 
     [Networked] public int Score { get; set; }
 
@@ -26,6 +29,11 @@ public class MovementController : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        if (ground && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
         if (HasStateAuthority)
         {
             float horizontal = Input.GetAxis("Horizontal");
@@ -42,7 +50,7 @@ public class MovementController : NetworkBehaviour
 
             else
             {
-               anim.SetBool("canWalk", false);
+                anim.SetBool("canWalk", false);
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -56,15 +64,22 @@ public class MovementController : NetworkBehaviour
                 speed = 5f;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && ground)
             {
-                if (ground)
-                {
-                    characterController.Move(Vector3.up * jump);
-                    ground = false;
-                    anim.SetBool("isJump", true);
-                }
+                velocity.y += jump;
+                ground = false;
+                anim.SetBool("isJump", true);
             }
+
+            velocity.y += gravity * Runner.DeltaTime;
+            characterController.Move(velocity * Runner.DeltaTime);
+        }
+    }
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.CompareTag("Solid"))
+        {
+            ground = true;
         }
     }
 }

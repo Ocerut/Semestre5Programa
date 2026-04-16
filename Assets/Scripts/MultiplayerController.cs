@@ -14,7 +14,7 @@ public class MultiplayerController : MonoBehaviour, INetworkRunnerCallbacks
     NetworkRunner runner; 
     public GameObject playerPrefab; 
     public Canvas TelaEntrarSala;
-    public Vector3 spawnPoint;
+    public GameObject spawnPoint;
 
     public async void EntrarSala()
     {
@@ -40,7 +40,7 @@ public class MultiplayerController : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.LocalPlayer != PlayerRef.None && runner.GetPlayerObject(runner.LocalPlayer) == null)
         {
-            var objetoDaRede = runner.Spawn(playerPrefab, spawnPoint, Quaternion.identity, runner.LocalPlayer);
+            var objetoDaRede = runner.Spawn(playerPrefab, spawnPoint.transform.position, Quaternion.identity, runner.LocalPlayer);
             runner.SetPlayerObject(runner.LocalPlayer, objetoDaRede);
         }
     }
